@@ -8,7 +8,6 @@
 %>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -26,6 +25,7 @@
             if (students != null && !students.isEmpty()) {%>
         <table border="1px">
             <tr>
+                <th>image</th>
                 <th>Id</th>
                 <th>Name</th>
                 <th>surname</th>
@@ -33,12 +33,20 @@
                 <th>age</th>
                 <th>lesson</th>
                 <th>delete</th>
+                <th>update</th>
             </tr>
 
             <%
                 for (Student student : students) {%>
 
             <tr>
+                <td>
+                    <%if (student.getPicName() != null) {%>
+                    <img src="/downloadImage?imageName=<%=student.getPicName()%>" width="100px">
+                    <%}else{%>
+                        no picture
+                    <%}%>
+                </td>
                 <td><%=student.getId()%>
                 </td>
                 <td><%=student.getName()%>
@@ -53,11 +61,13 @@
                 </td>
                 <td><a href="/deleteStudent?id=<%=student.getId()%>">delete</a>
                 </td>
+                <td><a href="/updateStudent?studentId=<%=student.getId()%>">update</a>
+                </td>
             </tr>
             <% }
             } else {
             %>
-            <h2>there isn't added employees yet</h2>
+            <h2>there isn't added students yet</h2>
             <%}%>
         </table>
     </div>

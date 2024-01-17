@@ -80,7 +80,7 @@ table {
     padding: 5px;
     text-align: center;
 }
-.main_for_add{
+.main_for_add_and_edit{
     width:100%;
     height:100vh;
     display: flex;
@@ -88,7 +88,7 @@ table {
     align-items: center;
 }
 
-.main_for_add > form > input,select{
+.main_for_add_and_edit > form > input,select{
     width: 500px;
     padding: 12px 20px;
     margin: 8px 0;

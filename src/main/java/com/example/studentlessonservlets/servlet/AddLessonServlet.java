@@ -32,7 +32,7 @@ public class AddLessonServlet extends HttpServlet {
         String lecturerName = req.getParameter("lecturer_name");
         String price = req.getParameter("price");
         if (!price.chars().allMatch(Character::isDigit)) {
-
+           resp.sendRedirect("/");
         } else {
             try {
                 lessonManager.add(Lesson.builder()

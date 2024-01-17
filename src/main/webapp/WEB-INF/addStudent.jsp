@@ -5,13 +5,12 @@
 <% List<Lesson> lessons = (List<Lesson>) request.getAttribute("lessons");%>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<div class="main_for_add">
+<div class="main_for_add_and_edit">
 
-    <form method="post" action="/addStudent">
+    <form method="post" action="/addStudent" enctype="multipart/form-data">
         <input type="text" name="name" placeholder="name"><br>
         <input type="text" name="surname" placeholder="surname"><br>
         <input type="text" name="email" placeholder="email"><br>
@@ -23,6 +22,7 @@
             <% }%>
         </select>
         <br>
+        <input type="file" name="picture">
         <input type="submit" placeholder="add">
     </form>
 
