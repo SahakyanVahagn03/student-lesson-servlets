@@ -3,7 +3,9 @@ package com.example.studentlessonservlets.servlet;
 
 import com.example.studentlessonservlets.manager.LessonManager;
 import com.example.studentlessonservlets.manager.StudentManager;
+import com.example.studentlessonservlets.manager.UserManager;
 import com.example.studentlessonservlets.model.Student;
+import com.example.studentlessonservlets.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -27,6 +29,7 @@ public class AddStudentServlet extends HttpServlet {
 
     private final StudentManager STUDENT_MANAGER = new StudentManager();
     private final LessonManager LESSON_MANAGER = new LessonManager();
+    private final UserManager USER_MANAGER = new UserManager();
 
     private final String UPLOAD_DIRECTORY = "C:\\Users\\37494\\IdeaProjects\\student-lesson-servlets\\uploadDirectory";
 
@@ -44,25 +47,32 @@ public class AddStudentServlet extends HttpServlet {
         String email = req.getParameter("email");
         String age = req.getParameter("age");
         String lessonId = req.getParameter("lessonId");
-
         if (!age.chars().allMatch(Character::isDigit) || !lessonId.chars().allMatch(Character::isDigit)) {
-            resp.sendRedirect("/");
+            req.getSession().setAttribute("msg", "invalid fields");
+            resp.sendRedirect("/addStudent");
         } else {
-            Part picture = req.getPart("picture");
-            String picName = null;
-            if (picture != null && picture.getSize() > 0) {
-                picName = System.currentTimeMillis() + "_" + picture.getSubmittedFileName();
-                picture.write(UPLOAD_DIRECTORY + File.separator + picName);
+            if (STUDENT_MANAGER.getStudentByEmail(email) != null) {
+                req.getSession().setAttribute("msg", "the student by this email already exist");
+                resp.sendRedirect("/addStudent");
+            } else {
+                Part picture = req.getPart("picture");
+                String picName = null;
+                if (picture != null && picture.getSize() > 0) {
+                    picName = System.currentTimeMillis() + "_" + picture.getSubmittedFileName();
+                    picture.write(UPLOAD_DIRECTORY + File.separator + picName);
+                }
+                User user = (User) req.getSession().getAttribute("user");
+                STUDENT_MANAGER.add(Student.builder()
+                        .name(name)
+                        .surname(surname)
+                        .email(email)
+                        .age(Integer.parseInt(age))
+                        .lesson(LESSON_MANAGER.getLessonById(Integer.parseInt(lessonId)))
+                        .picName(picName)
+                        .user(USER_MANAGER.getUserById(user.getId()))
+                        .build());
+                resp.sendRedirect("/students");
             }
-            STUDENT_MANAGER.add(Student.builder()
-                    .name(name)
-                    .surname(surname)
-                    .email(email)
-                    .age(Integer.parseInt(age))
-                    .lesson(LESSON_MANAGER.getLessonById(Integer.parseInt(lessonId)))
-                    .picName(picName)
-                    .build());
-            resp.sendRedirect("/students");
         }
 
     }

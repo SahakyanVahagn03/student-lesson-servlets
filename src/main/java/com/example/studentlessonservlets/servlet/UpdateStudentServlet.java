@@ -4,6 +4,7 @@ import com.example.studentlessonservlets.manager.LessonManager;
 import com.example.studentlessonservlets.manager.StudentManager;
 import com.example.studentlessonservlets.model.Lesson;
 import com.example.studentlessonservlets.model.Student;
+import com.example.studentlessonservlets.model.User;
 import com.example.studentlessonservlets.util.TimeUtil;
 
 import javax.servlet.ServletException;
@@ -46,18 +47,25 @@ public class UpdateStudentServlet extends HttpServlet {
         String email = req.getParameter("email");
         String age = req.getParameter("age");
         String lessonId = req.getParameter("lessonId");
+        User user = (User) req.getSession().getAttribute("user");
         if (!age.chars().allMatch(Character::isDigit) || !lessonId.chars().allMatch(Character::isDigit)) {
             resp.sendRedirect("/");
         } else {
-            STUDENT_MANAGER.update(Student.builder()
-                    .id(Integer.parseInt(id))
-                    .name(name)
-                    .surname(surname)
-                    .email(email)
-                    .age(Integer.parseInt(age))
-                    .lesson(LESSON_MANAGER.getLessonById(Integer.parseInt(lessonId)))
-                    .build());
-            resp.sendRedirect("/students");
+            if (STUDENT_MANAGER.getStudentByEmail(email) != null) {
+                req.getSession().setAttribute("msg", "the student by this email already exist");
+                resp.sendRedirect("/updateStudent");
+            } else {
+                STUDENT_MANAGER.update(Student.builder()
+                        .id(Integer.parseInt(id))
+                        .name(name)
+                        .surname(surname)
+                        .email(email)
+                        .age(Integer.parseInt(age))
+                        .lesson(LESSON_MANAGER.getLessonById(Integer.parseInt(lessonId)))
+                        .user(user)
+                        .build());
+                resp.sendRedirect("/students");
+            }
         }
     }
 }
