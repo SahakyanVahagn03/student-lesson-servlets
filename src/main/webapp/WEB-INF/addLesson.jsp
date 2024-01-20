@@ -4,10 +4,14 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
+<% String msg = (String) request.getSession().getAttribute("msg");%>
 <body>
 <div class="main_for_add_and_edit">
+    <%if (msg != null){%>
+    <span style="color:red"><%=msg%></span>
+    <%request.getSession().removeAttribute("msg");}%>
     <form method="post" action="/addLesson">
         <input type="text" name="name" placeholder="name"><br>
         <input type="text" name="duration" placeholder="duration"><br>

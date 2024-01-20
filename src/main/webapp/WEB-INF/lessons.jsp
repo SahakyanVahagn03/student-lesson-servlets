@@ -6,7 +6,7 @@
 <% List<Lesson> lessons = (List<Lesson>) request.getAttribute("lessons");%>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
@@ -29,6 +29,7 @@
                 <th>duration</th>
                 <th>lecturer name</th>
                 <th>price</th>
+                <th>adder</th>
                 <th>delete</th>
                 <th>update</th>
             </tr>
@@ -46,7 +47,9 @@
                 <td><%=lesson.getLecturerName()%>
                 </td>
                 <td><%=lesson.getPrice()
-                %>
+                %></td>
+                <td><%=lesson.getUser().getName()
+                %></td>
                 <td><a href="/deleteLesson?lessonId=<%=lesson.getId()%>">delete</a>
                 </td>
                 <td><a href="/updateLesson?lessonId=<%=lesson.getId()%>">update</a>

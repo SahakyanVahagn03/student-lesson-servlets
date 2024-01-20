@@ -50,8 +50,7 @@ public class UpdateStudentServlet extends HttpServlet {
         User user = (User) req.getSession().getAttribute("user");
         if (!age.chars().allMatch(Character::isDigit) || !lessonId.chars().allMatch(Character::isDigit)) {
             resp.sendRedirect("/");
-        } else {
-            if (STUDENT_MANAGER.getStudentByEmail(email) != null) {
+        } else { if (STUDENT_MANAGER.getStudentByEmail(email) != null) {
                 req.getSession().setAttribute("msg", "the student by this email already exist");
                 resp.sendRedirect("/updateStudent");
             } else {

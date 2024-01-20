@@ -9,33 +9,18 @@ body {
     background: lightblue;
 }
 
-.main_index, main {
+.home_main, main {
     width: 100%;
-    height: 100vh;
+}
+
+.home_main > .items {
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
-.main_index > ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.main_index > ul > li {
-    margin: 20px;
-}
-
-.main_index > ul > li > a > img:hover {
-    border: 4px solid white;
-}
-
-.main_index > ul > li > a {
-    text-align: center;
-    text-decoration: none;
-    color: black;
-}
 
 a {
     text-decoration: none;
@@ -44,6 +29,17 @@ a {
 
 .container {
     width: 100%;
+}
+.header_for_profile{
+    width:100%;
+    height:200px;
+    display: flex;
+    justify-content:space-around;
+    align-content:center;
+    margin:10px;
+    padding-right:50px;
+    color:black;
+    font-family:sans-serif;
 }
 
 .header {
@@ -84,8 +80,10 @@ table {
     width:100%;
     height:100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+
 }
 
 .main_for_add_and_edit > form > input,select{

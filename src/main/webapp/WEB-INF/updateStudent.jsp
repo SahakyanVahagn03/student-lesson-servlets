@@ -11,15 +11,19 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <%
     Student student = (Student) request.getAttribute("student");
     List<Lesson> lessons = (List<Lesson>) request.getAttribute("lessons");
+    String msg = (String) request.getSession().getAttribute("msg");
 %>
 <body>
 
 <div class="main_for_add_and_edit">
+    <%if (msg != null){%>
+    <span style="color:red"><%=msg%></span>
+    <%request.getSession().removeAttribute("msg");}%>
     <form method="post" action="/updateStudent">
         <input type="hidden" name="id"  value="<%=student.getId()%>"><br>
         <input type="text" name="name" placeholder="name" value="<%=student.getName()%>"><br>

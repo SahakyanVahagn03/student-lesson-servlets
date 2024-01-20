@@ -15,7 +15,7 @@
     <div class="header">
         <div class="nav-bar">
             <ul>
-                <li><a href="/addStudent">add student</a></li>
+                <li><a href="../addStudent">add student</a></li>
             </ul>
         </div>
     </div>
@@ -32,6 +32,7 @@
                 <th>email</th>
                 <th>age</th>
                 <th>lesson</th>
+                <th>adder</th>
                 <th>delete</th>
                 <th>update</th>
             </tr>
@@ -58,6 +59,8 @@
                 <td><%=student.getAge()%>
                 </td>
                 <td><%=student.getLesson().getName()%>
+                </td>
+                <td><%=student.getUser().getName()%>
                 </td>
                 <td><a href="/deleteStudent?id=<%=student.getId()%>">delete</a>
                 </td>
